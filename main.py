@@ -1,4 +1,5 @@
 import openpyxl
+import random
 
 wb = openpyxl.load_workbook('原始数据.xlsx')
 sheet = wb['Sheet1']
@@ -51,6 +52,27 @@ for data in sourceData:
         bal = bal + amt
         clientBalDict[clientName] = bal
 print(clientBalDict)
+
+# 随机指派管户经理
+def randomStaff:
+    rIndex = random.randint(0, len(staffs) - 1)
+    return staffs[rIndex]
+
+# 目标数据
+targetData = []
+for data in sourceData:
+    clientName = data[3]
+    if clientBalDict[clientName] >= 200000:
+        target = [data[2], data[3], data[5], data[7], data[9], data[10], data[12], data[13]]
+        # 关联管户经理
+        if clientName in clientStaffDict:
+            target.append(clientStaffDict[clientName])
+        else:
+            staff = randomStaff()
+            target.append(staff)
+            clientStaffDict[clientName] = staff
+            sheetClient.append([clientName, staff])
+        targetData.append(target)
 
 wbClient.save('客户对照.xlsx')
 wbClient.close()
