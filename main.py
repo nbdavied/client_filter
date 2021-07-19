@@ -13,6 +13,7 @@ for row in sheet.rows:
     for cell in row:
         rowData.append(cell.value)
     print(rowData)
+    sourceData.append(rowData)
 
 wb.close()
 
@@ -36,6 +37,20 @@ staffs = []
 for row in sheetStaff.rows:
     staffs.append(row[0].value)
 print(staffs)
+
+
+# 客户净流入金额字典
+clientBalDict = {}
+for data in sourceData:
+    clientName = data[3]
+    amt = data[7]
+    if not clientName in clientBalDict:
+        clientBalDict[clientName] = amt
+    else:
+        bal = clientBalDict[clientName]
+        bal = bal + amt
+        clientBalDict[clientName] = bal
+print(clientBalDict)
 
 wbClient.save('客户对照.xlsx')
 wbClient.close()
