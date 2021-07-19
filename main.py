@@ -1,5 +1,6 @@
 import openpyxl
 import random
+from time import strftime, localtime
 
 wb = openpyxl.load_workbook('原始数据.xlsx')
 sheet = wb['Sheet1']
@@ -54,7 +55,7 @@ for data in sourceData:
 print(clientBalDict)
 
 # 随机指派管户经理
-def randomStaff:
+def randomStaff():
     rIndex = random.randint(0, len(staffs) - 1)
     return staffs[rIndex]
 
@@ -76,3 +77,15 @@ for data in sourceData:
 
 wbClient.save('客户对照.xlsx')
 wbClient.close()
+
+wbTarget = openpyxl.Workbook()
+ws = wbTarget.active
+titles = ['客户号', '客户姓名', '交易日期', '交易金额', '交易摘要', '交易渠道',
+          '对方户名', '卡种', '对接联系人', '联系结果', '录音电话留存', '是否管户']
+ws.append(titles)
+for target in targetData:
+    ws.append(target)
+
+currentDate = strftime('%y%m%d', localtime())
+wbTarget.save(currentDate + '.xlsx')
+wbTarget.close()
